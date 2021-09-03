@@ -50,12 +50,20 @@ function App(){
       id: 3,
       name: 'Cowboy 2'
     },
+    {
+      id: 4,
+      name: 'Christmas'
+    },
   ]
 
   const cigarettesOptions = [
     {
       id: 1,
       name: 'cig 1'
+    },
+    {
+      id: 2,
+      name: 'pip 1'
     },
   ]
 
