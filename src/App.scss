@@ -25,6 +25,14 @@
    }
 
 
+   .count-box{
+       margin: 20px 0;
+
+       .title{
+           font-size: 1.5em;
+       }
+   }
+
    .select-color-box{
 
     .title{
@@ -92,8 +100,21 @@
 
 
    .generate-btn-box{
+       width: 400px;
        margin-top: 20px;
    }
+
+   .stop-btn-box{
+        width: 400px;
+        margin-top: 20px;
+        margin-bottom: 200px;
+        
+        .btn{
+            background-color: #C42223 !important;
+            border-color: #C42223 !important;   
+        }
+
+    } 
 
 
    
@@ -105,7 +126,8 @@
        justify-content: center;
        flex-wrap: wrap;
        position: relative;
-       margin-top: 100px;
+       margin-top: 50px;
+       
    }
 
     .image-box{
@@ -113,6 +135,7 @@
         width: 400px;
         height: 400px;
         position: relative;
+        box-shadow: 0 2px 2px 0 rgba(199, 199, 199, 0.14),0 3px 1px -2px rgba(199, 199, 199, 0.12),0 1px 5px 0 rgba(199, 199, 199, 0.3);
         
         .image {
             height: 10px;

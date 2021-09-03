@@ -11,18 +11,31 @@ const {Option} = Select
 
 function App(){
 
+  const [image , setImage] = useState(1)
   const [primaryColor , setPrimaryColor] = useState('#ca893f');
   const [secondaryColor , setSecondaryColor] = useState('#f0e760');
   const [backgroundColor , setBackgroundColor] = useState('#ffffff');
   const [hat , setHat] = useState(0);
   const [cigarette , setCigarette] = useState(0);
 
-  const [primaryColors , setPrimaryColors] = useState([]);
-  const [secondaryColors , setSecondaryColors] = useState([]);
-  const [backgroundColors , setBackgroundColors] = useState([]);
+  const [primaryColors , setPrimaryColors] = useState(['#f44336' , '#e91e63' , '#9c27b0' , '#673ab7' , '#3f51b5' , '#2196f3' , '#03a9f4' , '#00bcd4' ,'#009688' ]);
+  const [secondaryColors , setSecondaryColors] = useState([  '#cddc39' , '#ffeb3b' , '#ffc107' , '#ff9800' , '#795548' , '#9e9e9e' , '#607d8b']);
+  const [backgroundColors , setBackgroundColors] = useState(['#ffffff' , '#444444' , '#a28eec' , '#e4a786' , '#38e53e']);
   const [hats , setHats] = useState([0]);
   const [cigarettes , setCigarettes] = useState([0]);
 
+  const [spin , setSpin] = useState(false);
+  const [stop , setStop] = useState(false);
+  const [totalCount , setTotalCount] = useState(0);
+  const [downloadedCount , setDownloadedCount] = useState(0);
+
+
+  const images = [
+    {
+      id: 1,
+      name: 'seahourse'
+    },
+  ]
 
   const hatsOptions = [
     {
@@ -61,6 +74,11 @@ function App(){
     root.style.setProperty("--image-background-color", backgroundColor);
   },[primaryColor , secondaryColor , backgroundColor])
 
+  useEffect(()=>{
+      let count = primaryColors.length * secondaryColors.length * backgroundColors.length * hats.length * cigarettes.length;
+      setTotalCount(count);
+  },[primaryColors , secondaryColors , backgroundColors , hats , cigarettes])
+
 
 
   const hexToRgb = hex =>
@@ -79,12 +97,15 @@ function App(){
     const images = document.getElementById('images');
     let root = document.documentElement;
 
-    for(let c = 0 ; c < cigarettes.length ; c++){  // cigarettes
-      for(let h = 0 ; h < hats.length ; h++){      // hat
-        for(let b = 0 ; b < backgroundColors.length ; b++){      // backgorud color
-          for(let p = 0 ; p < primaryColors.length ; p++){       // primary color
-            for(let s = 0 ; s < secondaryColors.length ; s++){   // secondary color
-    
+    setSpin(true);
+
+    let counter = 1;
+          
+    for(let b = 0 ; b < backgroundColors.length ; b++){       // backgorud color
+      for(let p = 0 ; p < primaryColors.length ; p++){        // primary color
+        for(let s = 0 ; s < secondaryColors.length ; s++){    // secondary color
+          for(let h = 0 ; h < hats.length ; h++){             // hat
+            for(let c = 0 ; c < cigarettes.length ; c++){     // cigarettes
                 let background = backgroundColors[b];
                 let primary = primaryColors[p];
                 let secondary = secondaryColors[s];
@@ -115,22 +136,29 @@ function App(){
                 imageBox.appendChild(hat);
                 imageBox.appendChild(cig);
                 images.appendChild(imageBox);
-                download()
-                await sleep(1000);
-    
+                
+                if(counter === 1){
+                    await sleep(100);
+                }
+                download(counter);
+                await sleep(100);
+                setDownloadedCount(counter);
+                await sleep(500);
+                counter++;
             }
           }
         }
       }
     }
 
-
+    setSpin(false);
+    setStop(false);
   }
 
-  const download = ()=>{
+  const download = (counter)=>{
     toPng(document.getElementById('image-box')).then(dataUrl => {
       const link = document.createElement('a');
-      link.download = 'image.png';
+      link.download = `image-${counter}.png`;
       link.href = dataUrl;
       link.click();
     });
@@ -147,6 +175,11 @@ function App(){
         <Col className={'icon-box'}>
            <i className="lab la-github icon"></i>
         </Col>
+      </Row>
+
+
+      <Row justify={'center'} className={'count-box'}>
+        <Text className={'title'}>Total: {totalCount}</Text>
       </Row>
 
 
@@ -392,11 +425,12 @@ function App(){
 
 
       <Row justify={'center'}>
-          <Col md={{span: 5}} className={'generate-btn-box'}>
-              <Button onClick={generate} type={'primary'} block>Generate</Button>
+          <Col  className={'generate-btn-box'}>
+              <Button loading={spin} onClick={generate} type={'primary'} block>
+                {spin ? `Generating...  ${downloadedCount}/${totalCount}` : 'Generate'}
+              </Button>
           </Col>
       </Row>
-
       
 
 
