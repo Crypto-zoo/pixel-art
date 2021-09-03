@@ -18,9 +18,9 @@ function App(){
   const [hat , setHat] = useState(0);
   const [cigarette , setCigarette] = useState(0);
 
-  const [primaryColors , setPrimaryColors] = useState(['#f44336' , '#e91e63' , '#9c27b0' , '#673ab7' , '#3f51b5' , '#2196f3' , '#03a9f4' , '#00bcd4' ,'#009688' ]);
+  const [primaryColors , setPrimaryColors] = useState(['#f44336' , '#e91e63' , '#9c27b0' , '#673ab7' , '#3f51b5' , '#2196f3'  , '#00bcd4' ,'#009688' ]);
   const [secondaryColors , setSecondaryColors] = useState([  '#cddc39' , '#ffeb3b' , '#ffc107' , '#ff9800' , '#795548' , '#9e9e9e' , '#607d8b']);
-  const [backgroundColors , setBackgroundColors] = useState(['#ffffff' , '#444444' , '#a28eec' , '#e4a786' , '#38e53e']);
+  const [backgroundColors , setBackgroundColors] = useState(['#ffffff' , '#444444' , '#a28eec' , '#e4a786' , '#66e16a']);
   const [hats , setHats] = useState([0]);
   const [cigarettes , setCigarettes] = useState([0]);
 
